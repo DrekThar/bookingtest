@@ -42,9 +42,9 @@ class BookingService
      */
     public function getAvailableSlots(Service $service, Carbon $date): array
     {
-        $schedule = $this->bookingRepository->findScheduleForDay($date->dayOfWeek);
+        $schedule = $this->bookingRepository->findScheduleForDay($service->id, $date->dayOfWeek);
 
-        if (! $schedule) {
+        if (!$schedule) {
             return []; // В этот день услуга не предоставляется
         }
 
@@ -89,21 +89,21 @@ class BookingService
 
     /**
      * Подготавливает данные и создает новое бронирование.
-     * @param  array  $validatedData
+     * @param  array  $data
      * @return Booking
      * @throws Exception
      */
-    public function createBooking(array $validatedData): Booking
+    public function createBooking(array $data): Booking
     {
-        $service = $this->serviceRepository->findOrFail($validatedData['service_id']);
-        $startTime = Carbon::parse($validatedData['date'].' '.$validatedData['time']);
+        $service = $this->serviceRepository->findOrFail($data['service_id']);
+        $startTime = Carbon::parse($data['date'].' '.$data['time']);
         $endTime = $startTime->copy()
             ->addMinutes($service->duration_minutes); // Время на обслуживание не добавляется т.к. в теории может изменяться
 
         $bookingData = [
             'service_id' => $service->id,
-            'customer_name' => $validatedData['name'],
-            'customer_phone' => $validatedData['phone'],
+            'customer_name' => $data['name'],
+            'customer_phone' => $data['phone'],
             'start_time' => $startTime,
             'end_time' => $endTime,
         ];

@@ -16,7 +16,7 @@ git clone https://github.com/DrekThar/bookingtest.git .
 ### 2. Установка зависимостей
 
 ```bash
-composer install --no-dev --optimize-autoloader
+composer install --optimize-autoloader
 
 npm install
 ```
@@ -67,10 +67,9 @@ php artisan storage:link
 
 ## Запуск тестов
 
-Для запуска всех тестов выполните следующую команду в корневой директории проекта:
+Заполните пустые поля в .env.testing. Можно использовать те же, что и в .env т.к. в тестах используются транзакции (DatabaseTransactions). 
+Для запуска всех тестов выполните следующую команду в корневой директории:
  
 ```bash
- php artisan test
- ```
-
-Эта команда автоматически обнаружит и запустит все тесты в директории `tests`.
+ php artisan test --env=testing
+```

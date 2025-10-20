@@ -15,12 +15,13 @@ class BookingRepository
 {
     /**
      * Находит расписание на определенный день недели.
+     * @param  int  $serviceId
      * @param  int  $dayOfWeek
      * @return Schedule|null
      */
-    public function findScheduleForDay(int $dayOfWeek): ?Schedule
+    public function findScheduleForDay(int $serviceId, int $dayOfWeek): ?Schedule
     {
-        return Schedule::where('day_of_week', $dayOfWeek)->first();
+        return Schedule::where('day_of_week', $dayOfWeek)->where('service_id', $serviceId)->first();
     }
 
     /**
