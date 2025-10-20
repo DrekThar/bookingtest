@@ -20,7 +20,6 @@ class BookingServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Получаем реальный экземпляр сервиса из контейнера Laravel
         $this->bookingService = $this->app->make(BookingService::class);
         BookingService::$slotInterval = 30;
     }
@@ -70,7 +69,6 @@ class BookingServiceTest extends TestCase
             'time' => '14:00',
         ];
 
-        // 3. Действие (Act)
         $this->bookingService->createBooking($validatedData); // Первый вызов
         $this->bookingService->createBooking($validatedData); // Второй вызов
     }
