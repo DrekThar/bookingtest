@@ -66,9 +66,6 @@ class BookingRepository
 
                 return Booking::create($data);
             });
-        } catch (Exception $e) {
-            // Пробрасываем конкретное исключение для обработки выше
-            throw $e;
         } catch (Throwable $e) {
             // Любые другие общие ошибки
             report($e);
